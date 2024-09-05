@@ -2,18 +2,14 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/vorkey/go-fiber-todo/route"
 	// "go-fiber-todo/handlers"
 )
 
 func main() {
 	app := fiber.New()
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{
-			"Message": "Welcome to Go API!",
-		})
-
-	})
+	route.RouteInit(app)
 
 	app.Listen(":3000")
 }
