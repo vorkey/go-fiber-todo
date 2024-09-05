@@ -1,6 +1,9 @@
 package route
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/vorkey/go-fiber-todo/handler"
+)
 
 func RouteInit(r *fiber.App) {
 
@@ -9,5 +12,7 @@ func RouteInit(r *fiber.App) {
 			"Message": "Welcome to Go API!",
 		})
 	})
+
+	r.Get("/user", handler.UserHandlerRead)
 
 }
