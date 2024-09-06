@@ -2,11 +2,13 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/vorkey/go-fiber-todo/database"
 	"github.com/vorkey/go-fiber-todo/route"
-	// "go-fiber-todo/handlers"
 )
 
 func main() {
+	database.GetMysqlInstance()
+
 	app := fiber.New()
 
 	route.RouteInit(app)
