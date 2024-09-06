@@ -1,8 +1,7 @@
-package database
+package config
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -21,10 +20,11 @@ type databaseConfig struct {
 }
 
 func init() {
-	log.Fatalln(godotenv.Load())
+	// log.Fatalln(godotenv.Load(".env"))
+	godotenv.Load()
 }
 
-func DatabaseInit() gorm.Dialector {
+func GetDbConfig() gorm.Dialector {
 	dbConfig := databaseConfig{
 		user:     os.Getenv("DB_USERNAME"),
 		password: os.Getenv("DB_PASSWORD"),
@@ -34,7 +34,7 @@ func DatabaseInit() gorm.Dialector {
 	}
 
 	dsn := fmt.Sprintf(
-		"user=%s:password=%s@tcp(host=%s:port=%s)/dbname=%s?charset=utf8mb4&parseTime=True&loc=Local",
+		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		dbConfig.user,
 		dbConfig.password,
 		dbConfig.host,
