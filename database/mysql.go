@@ -8,12 +8,12 @@ import (
 )
 
 var (
-	db  *gorm.DB
+	DB  *gorm.DB
 	err error
 )
 
 func init() {
-	db, err = gorm.Open(config.GetDbConfig())
+	DB, err = gorm.Open(config.GetDbConfig())
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
@@ -22,5 +22,5 @@ func init() {
 }
 
 func GetMysqlInstance() *gorm.DB {
-	return db
+	return DB
 }
