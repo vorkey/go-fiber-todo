@@ -13,6 +13,6 @@ func RouteInit(r *fiber.App) {
 		})
 	})
 
-	r.Get("/user", handler.UserHandlerRead)
+	r.Get("/user", handler.UserHandlerGetAll)
 
 }
