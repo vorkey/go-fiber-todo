@@ -57,3 +57,20 @@ func UserHandlerCreate(ctx *fiber.Ctx) error {
 		"data":    newUser,
 	})
 }
+
+func UserHandlerGetByID(ctx *fiber.Ctx) error {
+	userId := ctx.Params("id")
+
+	var user entity.User
+	err := database.DB.First(&user, "id = ?", userId).Error
+	if err != nil {
+		return ctx.Status(404).JSON(fiber.Map{
+			"message": "failed to retrieve user",
+		})
+	}
+
+	return ctx.Status(404).JSON(fiber.Map{
+		"message": "success",
+		"data":    user,
+	})
+}
