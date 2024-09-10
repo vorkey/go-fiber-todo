@@ -2,7 +2,9 @@ package handler
 
 import (
 	"log"
+	"strings"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/vorkey/go-fiber-todo/database"
 	"github.com/vorkey/go-fiber-todo/model/entity"
@@ -24,6 +26,16 @@ func UserHandlerCreate(ctx *fiber.Ctx) error {
 
 	if err := ctx.BodyParser(user); err != nil {
 		return err
+	}
+
+	validate := validator.New()
+	errValidate := validate.Struct(user)
+
+	if errValidate != nil {
+		return ctx.Status(400).JSON(fiber.Map{
+			"message": "failed to store data",
+			"error":   strings.Split(errValidate.Error(), "\n"),
+		})
 	}
 
 	newUser := entity.User{
